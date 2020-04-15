@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Road Emotion Survey</title>
+
+    <!-- Fav Icon -->
+    <link rel="icon" type="image/png" href="./img/logo.png" />
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./css/vendor/fontawesome-all.css">
+    <!-- Page style -->
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+    <div class="hidding__section">
+        <video id="preview" width="160" height="120" autoplay muted></video>
+        <video id="recording" width="160" height="120" controls></video>
+        <a id="downloadButton" class="button">
+            Download
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="card card__dark">
+            <div class="card-body text-center">
+                <!--  -->
+                <h6 class="font-weight-bold text-warning"> 
+                    Scenario 2
+                </h6>
+
+
+                <div class="vdo__section">
+                    <!-- Video -->
+                    <video id="myVideo" class="vdo__player">
+                        <source src="./img/test.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
+                    </br>
+                    <button class="btn btn__play " onclick="play('2');" id="playBtn">
+                        <i class="fas fa-play-circle "></i>
+                    </button>
+                </div>
+
+                <div class="survey__section">
+                    <h3>
+                        How do you feel about this VDO?
+                    </h3>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="1">
+                        <label class="form-check-label">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="2">
+                        <label class="form-check-label">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="3">
+                        <label class="form-check-label">1</label>
+                    </div>
+                </div>
+                <a type="button" href="./situation2.html" class="btn btn-primary mt-5" style="width: 500px;" id="nextBtn">
+                    Next >>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<!-- Vendor JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="./js/vendor/bootstrap.min.js"></script>
+<script src="./js/record.js"></script>
+
+<script>
+
+    $("#nextBtn").hide();
+    $("input:radio[name='emotion']").click(function () {
+
+        var selected__value = $(this).val();
+        $("#nextBtn").show();
+    });
+</script>
+
+</html>

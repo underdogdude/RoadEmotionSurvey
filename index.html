@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Road Emotion Survey</title>
+
+    <!-- Fav Icon -->
+    <link rel="icon" type="image/png" href="./img/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./css/vendor/fontawesome-all.css">
+    <!-- Page style -->
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <form action="" id="myForm">
+            <div class="card card__dark">
+                <div class="card-body">
+                    <h1 style="font-size: 25px;font-weight: bold; margin-bottom: 30px;">
+                        Please Complete This Form Before Continue
+                    </h1>
+                    <div class="form-group pb-4">
+                        <label for="exampleInputEmail1"><strong>Name</strong></label>
+                        <input type="text" class="form-control" id="form_name" placeholder="" required/>
+                    </div>
+                    <div class="form-group pb-4">
+                        <p><strong>Gender</strong> </p>
+                        <label for="genderRadio1">
+                            <input type="radio" name="gender" value="male" id="genderRadio1" required/>
+                            Male
+                        </label></br>
+                        <label for="genderRadio2">
+                            <input type="radio" name="gender" value="female" id="genderRadio2" />
+                            Female
+                        </label>
+                    </div>
+
+                    <div class="form-group pb-4">
+                        <label><strong>Age</strong></label>
+                        <input type="number" class="form-control" id="form_age" required />
+                    </div>
+
+                    <div class="form-group pb-4">
+                        <label><strong>How long have you been holding a driver's license already? (In
+                                Years)</strong></label>
+                        <input type="number" class="form-control" id="form_license" required />
+                    </div>
+
+                    <div class="form-group pb-4">
+                        <p><strong> What is your estimated annual mileage?</strong></p>
+                        <label for="mile1">
+                            <input type="radio" name="mile" value="less than 5.000km / less than 3.000mi" id="mile1" required />
+                            less than 5.000km / less than 3.000mi
+                        </label></br>
+                        <label for="mile2">
+                            <input type="radio" name="mile" value="5.000 to 10.000km / 3.000 to 6.000mi" id="mile2" />
+                            5.000 to 10.000km / 3.000 to 6.000mi
+                        </label></br>
+                        <label for="mile3">
+                            <input type="radio" name="mile" value="10.000 to 20.000km / 6.000 to 12.000mi" id="mile3" />
+                            10.000 to 20.000km / 6.000 to 12.000mi
+                        </label></br>
+                        <label for="mile4">
+                            <input type="radio" name="mile" value="more than 20.000km / more than 12.000mi" id="mile4" />
+                            more than 20.000km / more than 12.000mi
+                        </label></br>
+                    </div>
+
+                    <!-- ปกติขับตถคนเดวหรือมีคนนั่งไปด้วย -->
+                    <div class="form-group pb-4">
+                        <p>
+                            <strong>
+                                Usually when you driving, You driving alone or driving with a someone sitting together?
+                            </strong>
+                        </p>
+                        <label for="drivingPerson1">
+                            <input type="radio" name="drivingPerson" value="Drive Alone" id="drivingPerson1" required />
+                            Drive Alone
+                        </label></br>
+                        <label for="drivingPerson2">
+                            <input type="radio" name="drivingPerson" value="Drive with Someone" id="drivingPerson2" />
+                            With Someone
+                        </label>
+                    </div>
+
+
+                    <div class="text-center my-5">
+                        <button type="submit" 
+                            class="btn btn-lg btn-primary btn-start">
+
+                            START
+                    </button>
+                    </div>
+                    <small class="text-danger">Watch a video to imagine that you were in that situation.</small>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+
+<!-- Vendor JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="./js/vendor/bootstrap.min.js"></script>
+<script>
+
+    $('#myForm').submit(function(e) {
+        e.preventDefault();
+        var all_value = $(this).find(':input') //<-- Should return all input elements in that specific form.
+
+        var name = $("#form_name").val();
+        var gender = $("input[name='gender']:checked").val();
+        var age =  $("#form_age").val();
+        var license =  $("#form_license").val();
+        var mile = $("input[name='mile']:checked").val();
+        var drivingWith = $("input[name='drivingPerson']:checked").val();
+
+        var content = `
+            Name: ${name}, \r\n
+            Gender: ${gender}, \r\n
+            Age: ${age}, \r\n
+            How long have you been holding a driver's license already? (In Years): ${license}, \r\n
+            What is your estimated annual mileage?: ${mile}, \r\n
+            Usually when you driving, You driving alone or driving with a someone sitting together?: ${drivingWith}
+        `
+        var atag = document.createElement("a");
+        var file = new Blob([content], {
+            type: 'text/plain'
+        });
+        atag.href = URL.createObjectURL(file);
+        atag.download = name;
+        atag.click();
+        
+        window.location = './situation1.html';
+    });
+
+   
+</script>
+
+
+
+
+</html>

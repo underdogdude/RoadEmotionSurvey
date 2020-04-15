@@ -1,0 +1,65 @@
+body { 
+    background: #202124;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+input[type=radio] { 
+    cursor: pointer;
+}
+
+.form-check-label { 
+    margin-right: 10px;
+}
+
+.bg__black-primary { 
+    background: #35363a;
+}
+.bg-black-secoundary { 
+    background : #202124;
+}
+
+.container { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.card__dark { 
+    background: #35363a;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    flex-grow: 1;
+    width: 100%;
+   
+}
+.vdo__section {
+    position: relative;
+}
+.vdo__player { 
+    width: 80%;
+}
+.btn__play { 
+    position: absolute;
+    top: 39%;
+    left: 45%;
+    font-size: 70px;
+    color: #f69322;
+}
+.hidding__section { 
+    visibility: hidden;
+    position: absolute;
+}
+
+.btn-start{ 
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.form-group { 
+    border-bottom: dashed 1px #525252;
+}
