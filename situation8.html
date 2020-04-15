@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Road Emotion Survey</title>
+
+    <!-- Fav Icon -->
+    <link rel="icon" type="image/png" href="./img/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./css/vendor/fontawesome-all.css">
+    <!-- Page style -->
+    <link rel="stylesheet" href="./css/style.css">
+    <script>
+        var recordingTimeMS;
+        function getmetadata() {
+
+            var vid_duration = vid.duration * 1000; //tranfrom it to millisec
+            recordingTimeMS = vid_duration;
+            $("#playBtn").show();
+            console.log(vid_duration);
+        };
+    </script>
+</head>
+
+<body>
+
+    <div class="hidding__section">
+        <video id="preview" width="160" height="120" autoplay muted></video>
+        <video id="recording" width="160" height="120" controls></video>
+        <a id="downloadButton" class="button">
+            Download
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="card card__dark">
+            <div class="card-body text-center">
+                <!--  -->
+                <h6 class="font-weight-bold text-warning">
+                    Scenario 8
+                </h6>
+
+                <div class="vdo__section">
+                   
+                    <video id="myVideo" class="vdo__player" onloadedmetadata="getmetadata()">
+                        <source src="./img/vdo/FoundThings.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
+
+                    </br>
+
+                    <button class="btn btn__play " onclick="playBtn()" id="playBtn">
+                        <i class="fas fa-play-circle "></i>
+                    </button>
+                </div>
+
+                <div class="survey__section mt-4">
+                    <h3>
+                        How do you feel about this VDO?
+                    </h3>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="angry">
+                        <label class="form-check-label">Angry</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="annoyed">
+                        <label class="form-check-label">Annoyed</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="anxious">
+                        <label class="form-check-label">Anxious</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="fear">
+                        <label class="form-check-label">Fear</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="emotion" value="sad">
+                        <label class="form-check-label">Sad</label>
+                    </div>
+                </div>
+                <div class="survey__section mt-4">
+                    <h3>
+                        Please indicate you emotional states
+                    </h3>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="1">
+                        <label class="form-check-label">Do not feel at all</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="2">
+                        <label class="form-check-label">Slightly Feel</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="3">
+                        <label class="form-check-label">Somewhat</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="4">
+                        <label class="form-check-label">Neutral</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="5">
+                        <label class="form-check-label">Quite a bit</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="6">
+                        <label class="form-check-label">Very much</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="likert" value="7">
+                        <label class="form-check-label">Strongly Feel</label>
+                    </div>
+                </div>
+
+                <button type="button" onclick="next('8','9')" class="btn btn-primary mt-5" style="width: 500px;"
+                    id="nextBtn">
+                    Next >>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- Vendor JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="./js/vendor/bootstrap.min.js"></script>
+
+<script>
+    // get name
+    var name = sessionStorage.getItem("name");
+    console.log(name);
+    $("#nextBtn").hide();
+    // $("#playBtn").hide();
+
+    $("input:radio[name='emotion']").click(function () {
+        var selected__value = $(this).val();
+        $("#nextBtn").show();
+    });
+
+    function playBtn() {
+        play(name, '8');
+    }
+
+    var vid = document.getElementById("myVideo");
+    let preview = document.getElementById("preview");
+    let recording = document.getElementById("recording");
+    let startButton = document.getElementById("startButton");
+    let stopButton = document.getElementById("stopButton");
+    let downloadButton = document.getElementById("downloadButton");
+
+
+    vid.onplaying = function () {
+        $("#playBtn").hide();
+    };
+    vid.onpause = function () {
+        $("#playBtn").show();
+    };
+
+    function wait(delayInMS) {
+        return new Promise((resolve) => setTimeout(resolve, delayInMS));
+    }
+
+    function startRecording(stream, lengthInMS) {
+        let recorder = new MediaRecorder(stream);
+        let data = [];
+
+        recorder.ondataavailable = (event) => data.push(event.data);
+        recorder.start();
+
+        let stopped = new Promise((resolve, reject) => {
+            recorder.onstop = resolve;
+            recorder.onerror = (event) => reject(event.name);
+        });
+
+        let recorded = wait(lengthInMS).then(
+            () => recorder.state == "recording" && recorder.stop()
+        );
+
+        return Promise.all([stopped, recorded]).then(() => data);
+    }
+
+    function stop(stream) {
+        stream.getTracks().forEach((track) => track.stop());
+    }
+
+    function startRecord(name, scenario_number) {
+        navigator.mediaDevices
+            .getUserMedia({
+                video: true,
+                audio: true,
+            })
+            .then((stream) => {
+                preview.srcObject = stream;
+                downloadButton.href = stream;
+                preview.captureStream =
+                    preview.captureStream || preview.mozCaptureStream;
+                vid.play();
+                
+                console.log(recordingTimeMS);
+                return new Promise((resolve) => (preview.onplaying = resolve));
+            })
+            .then(() => startRecording(preview.captureStream(), recordingTimeMS))
+
+            .then((recordedChunks) => {
+                let recordedBlob = new Blob(recordedChunks, {
+                    type: "video/webm",
+                });
+                recording.src = URL.createObjectURL(recordedBlob);
+
+                downloadButton.href = recording.src;
+                downloadButton.download = name + "_" + scenario_number + ".webm";
+                downloadButton.click();
+            })
+            .catch((err) => console.log(err));
+    }
+
+    function play(name, scenario_number) {
+        startRecord(name, scenario_number);
+    }
+</script>
+<script src="./js/record.js"></script>
+
+
+
+
+
+</html>
