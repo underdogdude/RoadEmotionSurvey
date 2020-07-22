@@ -16,15 +16,9 @@
     <link rel="stylesheet" href="./css/vendor/fontawesome-all.css">
     <!-- Page style -->
     <link rel="stylesheet" href="./css/style.css">
-    <script>
-        var recordingTimeMS;
-        function getmetadata() {
-
-            var vid_duration = vid.duration * 1000; //tranfrom it to millisec
-            recordingTimeMS = vid_duration;
-            $("#playBtn").show();
-        };
-    </script>
+   
+    <script defer src="./js/vendor/face-api.min.js"></script>
+    <script defer src="./js/script2.js"></script>
 </head>
 
 <body>
@@ -37,7 +31,12 @@
         </a>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
+        <div style="position: fixed; top: 10px; right: 10px; z-index: 99999;">
+            <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline width="100"
+                height="100"></video>
+            <canvas id="overlay" style="position: absolute; left: 0;"></canvas>
+        </div>
         <div class="card card__dark">
             <div class="card-body text-center">
                 <!--  -->
@@ -47,7 +46,7 @@
 
                 <div class="vdo__section">
                    
-                    <video id="myVideo" class="vdo__player" onloadedmetadata="getmetadata()">
+                    <video id="myVideo" class="vdo__player" >
                         <source src="./img/vdo/BadWeather.mp4" type="video/mp4">
                         Your browser does not support HTML5 video.
                     </video>
@@ -59,7 +58,7 @@
                     </button>
                 </div>
 
-                <div class="survey__section mt-4">
+                <!-- <div class="survey__section mt-4">
                     <h3>
                         How do you feel about this VDO?
                     </h3>
@@ -116,7 +115,7 @@
                         <input class="form-check-input" type="radio" name="likert" value="7">
                         <label class="form-check-label">Strongly Feel</label>
                     </div>
-                </div>
+                </div> -->
 
                 <button type="button" onclick="next('10','finish')" class="btn btn-primary mt-5" style="width: 500px;"
                     id="nextBtn">
@@ -140,10 +139,10 @@
     $("#nextBtn").hide();
     // $("#playBtn").hide();
 
-    $("input:radio[name='emotion']").click(function () {
-        var selected__value = $(this).val();
-        $("#nextBtn").show();
-    });
+    // $("input:radio[name='emotion']").click(function () {
+    //     var selected__value = $(this).val();
+    //     $("#nextBtn").show();
+    // });
 
     function playBtn() {
         play(name, '10');
@@ -164,64 +163,27 @@
         $("#playBtn").show();
     };
 
-    function wait(delayInMS) {
-        return new Promise((resolve) => setTimeout(resolve, delayInMS));
-    }
-
-    function startRecording(stream, lengthInMS) {
-        let recorder = new MediaRecorder(stream);
-        let data = [];
-
-        recorder.ondataavailable = (event) => data.push(event.data);
-        recorder.start();
-
-        let stopped = new Promise((resolve, reject) => {
-            recorder.onstop = resolve;
-            recorder.onerror = (event) => reject(event.name);
-        });
-
-        let recorded = wait(lengthInMS).then(
-            () => recorder.state == "recording" && recorder.stop()
-        );
-
-        return Promise.all([stopped, recorded]).then(() => data);
-    }
-
-    function stop(stream) {
-        stream.getTracks().forEach((track) => track.stop());
-    }
-
-    function startRecord(name, scenario_number) {
-        navigator.mediaDevices
-            .getUserMedia({
-                video: true,
-                audio: true,
-            })
-            .then((stream) => {
-                preview.srcObject = stream;
-                downloadButton.href = stream;
-                preview.captureStream =
-                    preview.captureStream || preview.mozCaptureStream;
-                vid.play();
-                return new Promise((resolve) => (preview.onplaying = resolve));
-            })
-            .then(() => startRecording(preview.captureStream(), recordingTimeMS))
-
-            .then((recordedChunks) => {
-                let recordedBlob = new Blob(recordedChunks, {
-                    type: "video/webm",
-                });
-                recording.src = URL.createObjectURL(recordedBlob);
-
-                downloadButton.href = recording.src;
-                downloadButton.download = name + "_" + scenario_number + ".webm";
-                downloadButton.click();
-            })
-            .catch((err) => console.log(err));
-    }
-
     function play(name, scenario_number) {
-        startRecord(name, scenario_number);
+        vid.play();
+    }
+    document.getElementById('myVideo').addEventListener('ended', myHandler, false);
+    function myHandler(e) {
+        // What you want to do after the event
+        var link = document.createElement("a");
+        link.setAttribute("target", "_blank");
+        if (Blob !== undefined) {
+            var blob = new Blob([emotionString], {
+                type: "text/plain"
+            });
+            link.setAttribute("href", URL.createObjectURL(blob));
+        } else {
+            link.setAttribute("href", "data:text/plain," + encodeURIComponent(text));
+        }
+        link.setAttribute("download", "situation10");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        $("#nextBtn").show();
     }
 </script>
 <script src="./js/record.js"></script>

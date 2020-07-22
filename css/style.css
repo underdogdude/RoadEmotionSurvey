@@ -41,7 +41,8 @@ input[type=radio] {
     position: relative;
 }
 .vdo__player { 
-    width: 80%;
+    width: 100%;
+    /* width: 80%; */
 }
 .btn__play { 
     position: absolute;
